@@ -237,14 +237,14 @@ non-nil, (match-string 0) must be the expression matched."
 
 (defun highlight-stages-lisp-quote-matcher (&optional limit)
   (when (highlight-stages--search-forward-regexp
-         "\\(?:`\\|\\(#?'\\)\\)\\|([\s\t\n]*\\(?:backquote\\|\\(quote\\)\\)[\s\t\n]+" limit)
+         "\\(?:`\\|\\(#?'\\)\\)\\|([\s\t\n]*\\(?:backquote\\|\\(quote\\)\\)[\s\t\n]+\\|\\(?:#~\\)\\|([\s\t\n]*\\(?:gexp\\)[\s\t\n]+" limit)
     (prog1 (if (or (match-beginning 1) (match-beginning 2)) 'real t)
       (set-match-data
        (list (point)
              (progn (ignore-errors (forward-sexp 1)) (point)))))))
 
 (defun highlight-stages-lisp-escape-matcher (&optional limit)
-  (when (highlight-stages--search-forward-regexp ",@?\\|([\s\t\n]*\\\\,@?+[\s\t\n]+" limit)
+  (when (highlight-stages--search-forward-regexp ",@?\\|([\s\t\n]*\\\\,@?+[\s\t\n]+\\|#\\$" limit)
     (set-match-data
      (list (point)
            (progn (ignore-errors (forward-sexp 1)) (point))))
