@@ -244,7 +244,7 @@ non-nil, (match-string 0) must be the expression matched."
              (progn (ignore-errors (forward-sexp 1)) (point)))))))
 
 (defun highlight-stages-lisp-escape-matcher (&optional limit)
-  (when (highlight-stages--search-forward-regexp ",@?\\|([\s\t\n]*\\\\,@?+[\s\t\n]+\\|#\\$" limit)
+  (when (highlight-stages--search-forward-regexp ",@?\\|([\s\t\n]*\\\\,@?+[\s\t\n]+\\|\\(unquote\\)\\|\\(unquote-splicing\\)\\|\\(ungexp-native\\)\\|\\(ungexp-splicing\\)\\|\\(ungexp-native-splicing\\)\\|\\(ungexp\\)\\|#\\$" limit)
     (set-match-data
      (list (point)
            (progn (ignore-errors (forward-sexp 1)) (point))))
